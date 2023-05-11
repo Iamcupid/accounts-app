@@ -1,14 +1,11 @@
-<script>
-import { AdminLayout } from "../layout/AdminLayout.vue";
-
-export default {
-  name : "Dashboard",
-  components : { AdminLayout }
-};
+<script setup>
+import AdminLayout from "../layout/AdminLayout.vue";
+import Breadcrum from "../includes/navigation/Breadcrum.vue";
 </script>
 
 <template>
   <AdminLayout>
-    <h2>Dashboard</h2>
+    <Breadcrum icon="tachometer-alt" page="Dashboard" active="Dashboard" />
+    Dashboard
   </AdminLayout>
 </template>

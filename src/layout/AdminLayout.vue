@@ -1,12 +1,13 @@
-<script>
-export default {
-  name: "AdminLayout",
-};
+<script setup>
+import FooterBar from '../includes/footer/FooterBar.vue';
+import Sidebar from '../includes/navigation/Sidebar.vue';
+
 </script>
 
 <template>
-  <main>
-    <slot></slot>
+  <Sidebar />
+  <main class="ml-60 p-4">
+    <slot />
   </main>
-  <h2>Admin Layout</h2>
+  <FooterBar margin="ml-64 mr-4" />
 </template>

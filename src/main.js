@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router/index';
+import router from './router/index.js';
+import { APP_VERSION } from './version.js';
 import './style.css';
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
@@ -11,8 +12,17 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 
 library.add( fas, far, fab );
 
+const app = createApp(App);
 
-createApp(App)
-.use(router)
-.component('fa-icon', FontAwesomeIcon)
-.mount('#app')
+app.component('fa-icon', FontAwesomeIcon);
+
+app.config.globalProperties.$appVersion = APP_VERSION;
+
+app.use(router);
+
+app.mount('#app');
+
+// createApp(App)
+// .use(router)
+// .component('fa-icon', FontAwesomeIcon)
+// .mount('#app')
