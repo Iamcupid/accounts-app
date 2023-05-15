@@ -6,12 +6,12 @@ import Pagination from "../../includes/navigation/Pagination.vue";
 
 <template>
   <AdminLayout>
-    <Breadcrum icon="users" page="Staff & Employee" active="Employee" />
+    <Breadcrum icon="users" page="Products / Serivces" active="Items" />
     <section class="flex flex-col gap-4 bg-gray-100 rounded-md shadow-md shadow-gray-300 p-4 my-12">
       <div class="flex items-center justify-between gap-4">
-        <h4>Users DataTable</h4>
+        <h4>Products / Services DataTable</h4>
         <ul class="flex items-center gap-2 text-sm text-gray-500 mt-2">
-          <router-link :to="{ name : 'staffs.create' }" class="block hover:text-gray-700 hover:bg-gray-300 border-2 border-gray-300 rounded-sm px-2 py-1" >
+          <router-link :to="{ name : 'items.create' }" class="block hover:text-gray-700 hover:bg-gray-300 border-2 border-gray-300 rounded-sm px-2 py-1" >
             <fa-icon :icon="['fas','plus']" />
             <span class="pl-2">Add New</span>
           </router-link>
@@ -33,11 +33,11 @@ import Pagination from "../../includes/navigation/Pagination.vue";
                 <thead class="font-bold bg-gray-300 border-b ">
                   <tr>
                     <th scope="col" class="px-6 py-3">#</th>
-                    <th scope="col" class="px-6 py-3">Employee ID</th>
-                    <th scope="col" class="px-6 py-3">Name of Employee</th>
-                    <th scope="col" class="px-6 py-3">Designation</th>
-                    <th scope="col" class="px-6 py-3">Department</th>
-                    <th scope="col" class="px-6 py-3">Date Joined</th>
+                    <th scope="col" class="px-6 py-3">Title of Item</th>
+                    <th scope="col" class="px-6 py-3">SKU</th>
+                    <th scope="col" class="px-6 py-3">Category</th>
+                    <th scope="col" class="px-6 py-3">Price</th>
+                    <th scope="col" class="px-6 py-3">Date Created</th>
                     <th scope="col" class="px-6 py-3">Action</th>
                   </tr>
                 </thead>

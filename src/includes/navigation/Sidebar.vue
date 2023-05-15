@@ -16,32 +16,32 @@ export default {
 </script>
 
 <template>
-  <aside class="block bg-gray-950 fixed w-60 h-screen">
-    <nav class="p-0.5 overflow-y-auto">
+  <aside class="fixed bg-gray-950 w-60 h-screen overflow-y-auto" >
+    <nav class="p-0.5 pb-4">
       <ul class="flex flex-col gap-1 text-gray-400">
         <router-link @click="clickSound" :to="{ name : 'dashboard' }" class="flex items-center gap-4 hover:bg-gray-900 px-4 py-1.5 w-full" >
           <fa-icon :icon="['fas','tachometer-alt']" class="w-4 h-4" />
           <span class="">Dashboard</span>
         </router-link>
-        <li class="font-bold uppercase border-b-2 border-gray-500 pb-1 mx-4 my-1">Miscelenous</li>
+        <li class="text-sm font-bold uppercase border-b-2 border-gray-500 pb-1 mx-4 my-1">Miscelenous</li>
         <router-link @click="clickSound" :to="{ name : 'dashboard' }" class="flex items-center gap-4 hover:bg-gray-900 px-4 py-1.5 w-full" >
           <fa-icon :icon="['fas','tachometer-alt']" class="w-4 h-4" />
           <span class="">Reports</span>
         </router-link>
-        <li class="font-bold uppercase border-b-2 border-gray-500 pb-1 mx-4 my-1">Retail Management</li>
-        <router-link @click="clickSound" :to="{ name : 'dashboard' }" class="flex items-center gap-4 hover:bg-gray-900 px-4 py-1.5 w-full" >
+        <li class="text-sm font-bold uppercase border-b-2 border-gray-500 pb-1 mx-4 my-1">Retail Management</li>
+        <router-link @click="clickSound" :to="{ name : 'items.index' }" class="flex items-center gap-4 hover:bg-gray-900 px-4 py-1.5 w-full" >
           <fa-icon :icon="['fas','tachometer-alt']" class="w-4 h-4" />
           <span class="">Products / Services</span>
         </router-link>
-        <router-link @click="clickSound" :to="{ name : 'dashboard' }" class="flex items-center gap-4 hover:bg-gray-900 px-4 py-1.5 w-full" >
+        <router-link @click="clickSound" :to="{ name : 'category.index' }" class="flex items-center gap-4 hover:bg-gray-900 px-4 py-1.5 w-full" >
           <fa-icon :icon="['fas','tachometer-alt']" class="w-4 h-4" />
           <span class="">Category</span>
         </router-link>
-        <router-link @click="clickSound" :to="{ name : 'dashboard' }" class="flex items-center gap-4 hover:bg-gray-900 px-4 py-1.5 w-full" >
+        <router-link @click="clickSound" :to="{ name : 'invoice.index' }" class="flex items-center gap-4 hover:bg-gray-900 px-4 py-1.5 w-full" >
           <fa-icon :icon="['fas','tachometer-alt']" class="w-4 h-4" />
           <span class="">Invoices</span>
         </router-link>
-        <li class="font-bold uppercase border-b-2 border-gray-500 pb-1 mx-4 my-1">Employee Management</li>
+        <li class="text-sm font-bold uppercase border-b-2 border-gray-500 pb-1 mx-4 my-1">Employee Management</li>
         <router-link @click="clickSound" :to="{ name : 'staffs.index' }" class="flex items-center gap-4 hover:bg-gray-900 px-4 py-1.5 w-full" >
           <fa-icon :icon="['fas','users']" class="w-4 h-4" />
           <span class="">Staff & Employee</span>
@@ -54,14 +54,22 @@ export default {
           <fa-icon :icon="['fas','users']" class="w-4 h-4" />
           <span class="">Payroll Statement</span>
         </router-link>
-        <li class="font-bold uppercase border-b-2 border-gray-500 pb-1 mx-4 my-1">Settings & Privacy</li>
+        <li class="text-sm font-bold uppercase border-b-2 border-gray-500 pb-1 mx-4 my-1">Settings & Privacy</li>
+        <router-link @click="clickSound" :to="{ name : 'dashboard' }" class="flex items-center gap-4 hover:bg-gray-900 px-4 py-1.5 w-full" >
+          <fa-icon :icon="['fas','cog']" class="w-4 h-4" />
+          <span class="">Settings</span>
+        </router-link>
+        <router-link @click="clickSound" :to="{ name : 'dashboard' }" class="flex items-center gap-4 hover:bg-gray-900 px-4 py-1.5 w-full" >
+          <fa-icon :icon="['fas','cog']" class="w-4 h-4" />
+          <span class="">Settings</span>
+        </router-link>
         <router-link @click="clickSound" :to="{ name : 'dashboard' }" class="flex items-center gap-4 hover:bg-gray-900 px-4 py-1.5 w-full" >
           <fa-icon :icon="['fas','cog']" class="w-4 h-4" />
           <span class="">Settings</span>
         </router-link>
       </ul>
     </nav>
-    <footer class="absolute bg-gray-950 bottom-3">
+    <footer class="sticky bg-gray-950 bottom-3">
       <div class="flex items-center justify-between gap-4 border-t-2 border-gray-600 pt-2 mx-4">
         <div class="w-1/4">
           <img src="../../assets/images/shawon.jpg" class="border-2 border-gray-500 rounded-full p-0.5" alt="" />

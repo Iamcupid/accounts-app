@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router/index.js';
 import { APP_VERSION } from './version.js';
 import './style.css';
+import category from "./store/category";
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -19,6 +20,7 @@ app.component('fa-icon', FontAwesomeIcon);
 app.config.globalProperties.$appVersion = APP_VERSION;
 
 app.use(router);
+app.use(category);
 
 app.mount('#app');
 
