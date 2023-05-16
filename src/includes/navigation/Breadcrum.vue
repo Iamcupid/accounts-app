@@ -7,7 +7,7 @@ defineProps({
 </script>
 
 <template>
-  <nav class="flex items-center justify-between gap-4 bg-gray-200 rounded-md shadow-md shadow-gray-300 p-4 w-full">
+  <nav class="flex xs:flex-col lg:items-center xl:items-center 2xl:items-center justify-between gap-2 lg:gap-4 xl:gap-4 2xl:gap-4 bg-gray-200 rounded-md shadow-md shadow-gray-300 px-4 py-2 w-full">
     <div>
       <h4 class="text-xl text-gray-900">
         <fa-icon :icon="icon" />

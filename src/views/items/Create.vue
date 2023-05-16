@@ -3,93 +3,95 @@ import { ref, computed } from 'vue';
 import AdminLayout from '../../layout/AdminLayout.vue';
 import Breadcrum from "../../includes/navigation/Breadcrum.vue";
 export default {
-  name : "staff-create",
+  name : "item-create",
   components : { AdminLayout, Breadcrum },
+  // data : () => ({
+  //   item: {
+  //     title: '',
+  //     desc: '',
+  //     parent: '',
+  //     imageFile: null,
+  //     imageSrc: ''
+  //   }
+  //   return {
+  //     imageFile: null,
+  //     imageSrc: ''
+  //   };
+  // }),
   data : () => {
     return {
+      item: {
+        title: '',
+        desc: '',
+        parent: '',
+        child: '',
+        brand: '',
+        sku: '',
+        price: '',
+        discount: '',
+        slug: '',
+        availability: '',
+        stock: '',
+        imageFile: '',
+        imageSrc: ''
+      },
       imageFile: null,
       imageSrc: ''
     };
   },
+  computed: {
+    createdItems() {
+      return this.$store.getters.getCreatedItems;
+    }
+  },
   methods: {
+    submitForm(){
+      const itemId = Date.now().toString();
+      const newItem = {
+        id: itemId,
+        title: this.item.title,
+        desc: this.item.desc,
+        parent: this.item.parent,
+        child: this.item.child,
+        brand: this.item.brand,
+        sku: this.item.sku,
+        price: this.item.price,
+        discount: this.item.discount,
+        slug: this.item.slug,
+        availability: this.item.availability,
+        stock: this.item.stock,
+        imageFile: this.item.imageFile,
+        imageSrc: this.item.imageSrc,
+        createdTime : new Date()
+      };
+      this.$store.dispatch('addItem', newItem);
+      this.resetForm();
+      alert("Product Added");
+    },
+    resetForm() {
+      this.item = {
+        title: '',
+        desc: '',
+        parent: '',
+        child: '',
+        brand: '',
+        sku: '',
+        price: '',
+        discount: '',
+        slug: '',
+        availability: '',
+        stock: '',
+        imageFile: '',
+        imageSrc: ''
+      }
+    },
     handleFileChange(event) {
       this.imageFile = event.target.files[0];
       this.imageSrc = URL.createObjectURL(this.imageFile);
     }
   },
   setup : () => {
-    const departments = ref(['Engineering', 'Marketing', 'Finance', 'Human Resources']);
-    
-    const designations = ref({
-      Engineering: ['Software Engineer', 'System Architect', 'Quality Assurance'],
-      Marketing: ['Marketing Manager', 'Digital Marketer', 'Brand Strategist'],
-      Finance: ['Financial Analyst', 'Accountant', 'Auditor'],
-      'Human Resources': ['HR Manager', 'Recruitment Specialist', 'Training Coordinator'],
-    });
-    
-    const selectedDepartment = ref('');
-    const selectedDesignation = ref('');
-    
-    const filteredDesignations = computed(() => {
-      return selectedDepartment.value ? designations.value[selectedDepartment.value] : [];
-    });
-    
-    const selectDepartment = () => {
-      selectedDesignation.value = '';
-    };
-
-    const divisions = ref([ 'Barisal', 'Chittagong', 'Dhaka', 'Khulna', 'Mymensingh', 'Rajshahi', 'Rangpur', 'Sylhet' ]);
-
-    const districts = ref({
-      Barisal: ['Barguna', 'Barisal', 'Bhola', 'Jhalokati', 'Patuakhali', 'Pirojpur'],
-      Chittagong: ['Bandarban', 'Brahmanbaria', 'Chandpur', 'Chittagong', 'Comilla'],
-      Dhaka: ['Dhaka', 'Faridpur', 'Gazipur', 'Gopalganj', 'Jamalpur', 'Kishoreganj'],
-      Khulna: ['Bagerhat', 'Chuadanga', 'Jessore', 'Jhenaidah', 'Khulna', 'Kushtia'],
-      Mymensingh: ['Jamalpur', 'Mymensingh', 'Netrakona', 'Sherpur'],
-      Rajshahi: ['Bogra', 'Joypurhat', 'Naogaon', 'Natore', 'Rajshahi', 'Sirajganj'],
-      Rangpur: ['Dinajpur', 'Gaibandha', 'Kurigram', 'Lalmonirhat', 'Nilphamari', 'Rangpur'],
-      Sylhet: ['Habiganj', 'Moulvibazar', 'Sunamganj', 'Sylhet'],
-    });
-
-    const selectedDivision = ref('');
-    const selectedDistrict = ref('');
-
-    const filteredDistricts = computed(() => {
-      return selectedDivision.value ? districts.value[selectedDivision.value] : [];
-    });
-
-    const selectDivision = () => {
-      selectedDistrict.value = '';
-    };
-
-    const genders = ref(['Male', 'Female', 'Other']);
-    const selectedGender = ref('');
-
-    const religions = ref(['Islam', 'Christianity', 'Hinduism', 'Buddhism', 'Judaism', 'Sikhism', 'Other']);
-    const selectedReligion = ref('');
-
-    const maritalStatuses = ref(['Single', 'Married', 'Divorced', 'Widowed']);
-    const selectedMaritalStatus = ref('');
-
     return {
-      departments,
-      designations,
-      selectedDepartment,
-      selectedDesignation,
-      filteredDesignations,
-      selectDepartment,
-      divisions,
-      districts,
-      selectedDivision,
-      selectedDistrict,
-      filteredDistricts,
-      selectDivision,
-      genders,
-      selectedGender,
-      religions,
-      selectedReligion,
-      maritalStatuses,
-      selectedMaritalStatus,
     };
   },
 }
@@ -99,26 +101,26 @@ export default {
   <AdminLayout>
     <Breadcrum icon="users" page="Products / Services" active="Items" />
     <section class="my-12">
-      <form action="">
+      <form @submit.prevent="submitForm">
         <div class="flex justify-between gap-4 text-sm">
           <div class="block bg-gray-100 rounded-md shadow-md shadow-gray-300 p-4 w-3/5">
             <div class="mb-2">
               <label for="title">Title of Item</label>
               <div class="flex items-center gap-1 mt-1">
-                <input type="text" name="title" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="title" placeholder="Item Name" required />
+                <input type="text" name="title" v-model="item.title" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="title" placeholder="Item Name" required />
               </div>
             </div>
             <div class="border-y-2 border-gray-400 py-4 my-4">
               <label for="desc">Item Description</label>
               <div class="flex items-center gap-1 mt-1">
-                <textarea name="desc" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full resize-none" id="desc" cols="30" rows="20"></textarea>
+                <textarea name="desc" v-model="item.desc" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full resize-none" id="desc" cols="30" rows="20"></textarea>
               </div>
             </div>
             <div class="grid grid-cols-2 gap-2 mb-2">
               <div class="block">
                 <label for="parent">Main Category</label>
                 <div class="flex items-center gap-1 mt-1">
-                  <select class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="parent" >
+                  <select name="parent" v-model="item.parent" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="parent" >
                     <option value="">-- Choose One --</option>
                   </select>
                 </div>
@@ -126,7 +128,7 @@ export default {
               <div class="block">
                 <label for="child">Sub Category</label>
                 <div class="flex items-center gap-1 mt-1">
-                  <select class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="child" >
+                  <select name="child" v-model="item.child" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="child" >
                     <option value="">-- Choose One --</option>
                   </select>
                 </div>
@@ -139,13 +141,13 @@ export default {
               <div class="block">
                 <label for="brand">Brand Name</label>
                 <div class="flex items-center gap-1 mt-1">
-                  <input type="text" name="brand" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="brand" placeholder="Brand Name" required />
+                  <input type="text" name="brand" v-model="item.brand" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="brand" placeholder="Brand Name" required />
                 </div>
               </div>
               <div class="block">
                 <label for="sku">Item SKU</label>
                 <div class="flex items-center gap-1 mt-1">
-                  <input type="text" name="sku" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="sku" placeholder="Item SKU" />
+                  <input type="text" name="sku" v-model="item.sku" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="sku" placeholder="Item SKU" />
                 </div>
               </div>
             </div>
@@ -153,27 +155,27 @@ export default {
               <div class="block">
                 <label for="price">Regular Price</label>
                 <div class="flex items-center gap-1 mt-1">
-                  <input type="text" name="price" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="price" placeholder="Regular Price" required />
+                  <input type="text" name="price" v-model="item.price" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="price" placeholder="Regular Price" required />
                 </div>
               </div>
               <div class="block">
                 <label for="discount">Discount</label>
                 <div class="flex items-center gap-1 mt-1">
-                  <input type="text" name="discount" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="discount" placeholder="Discount" />
+                  <input type="text" name="discount" v-model="item.discount" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="discount" placeholder="Discount" />
                 </div>
               </div>
             </div>
             <div class="my-2">
               <label for="slug">Item Slug</label>
               <div class="flex items-center gap-1 mt-1">
-                <input type="text" name="slug" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="slug" placeholder="Item Slug" />
+                <input type="text" name="slug" v-model="item.slug" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="slug" placeholder="Item Slug" />
               </div>
             </div>
             <div class="grid grid-cols-2 gap-1 border-b-2 border-gray-400 pb-3.5 my-2">
               <div class="block">
                 <label for="availability">Stock Status</label>
                 <div class="flex items-center gap-1 mt-1">
-                  <select class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="availability" >
+                  <select name="availability" v-model="item.availability" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="availability" >
                     <option value="">-- Choose One --</option>
                   </select>
                 </div>
@@ -181,7 +183,7 @@ export default {
               <div class="block">
                 <label for="stock">Stock Quantity</label>
                 <div class="flex items-center gap-1 mt-1">
-                  <input type="text" name="stock" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="stock" />
+                  <input type="text" name="stock" v-model="item.stock" class="inline-block text-sm border-2 border-gray-300 focus:outline-none px-4 py-1.5 w-full" id="stock" />
                 </div>
               </div>
             </div>

@@ -4,6 +4,7 @@ import router from './router/index.js';
 import { APP_VERSION } from './version.js';
 import './style.css';
 import category from "./store/category";
+import item from "./store/item";
 
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -21,6 +22,7 @@ app.config.globalProperties.$appVersion = APP_VERSION;
 
 app.use(router);
 app.use(category);
+app.use(item);
 
 app.mount('#app');
 

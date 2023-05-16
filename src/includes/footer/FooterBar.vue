@@ -24,7 +24,7 @@ export default {
   <footer class="flex items-center justify-between gap-4 text-sm text-gray-500 bg-gray-900 px-4 py-2" :class="margin">
     <div class="block">
       <p>
-        <span>{{ currentYear }} &copy;</span>
+        <span>&copy; {{ currentYear }}</span>
         <span class="border-l-2 border-gray-500 pl-1.5 ml-1.5">Created By : </span>
         <a href="http://www.shawon-khan.com" class="px-1.5 hover:underline" target="_blank" >Shawon Khan</a>
       </p>
@@ -40,3 +40,4 @@ export default {
     </ul>
   </footer>
 </template>
+

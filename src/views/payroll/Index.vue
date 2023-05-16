@@ -76,3 +76,4 @@ import Breadcrum from "../../includes/navigation/Breadcrum.vue";
     </section>
   </AdminLayout>
 </template>
+

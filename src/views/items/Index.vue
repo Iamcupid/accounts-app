@@ -1,7 +1,51 @@
-<script setup>
+<script>
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 import AdminLayout from '../../layout/AdminLayout.vue';
 import Breadcrum from "../../includes/navigation/Breadcrum.vue";
 import Pagination from "../../includes/navigation/Pagination.vue";
+
+export default {
+  components: {
+    AdminLayout,
+    Breadcrum,
+    Pagination
+  },
+  data: () => ({
+    index: 0
+  }),
+  setup() {
+    const store = useStore();
+    const createdItems = computed(() => store.getters.getCreatedItems);
+    // const getParentCategoryTitle = (parentId) => {
+    //   const parentCategory = createdCategories.value.find(category => category.id === parentId);
+    //   return parentCategory ? parentCategory.title : 'No Parent';
+    // };
+    const getTimeDifference = (createdTime) => {
+      const currentTime = new Date();
+      const differenceInSeconds = Math.floor((currentTime - createdTime) / 1000);
+
+      if (differenceInSeconds < 60) {
+        return `${differenceInSeconds} seconds ago`;
+      } else if (differenceInSeconds < 3600) {
+        const minutes = Math.floor(differenceInSeconds / 60);
+        return `${minutes} minutes ago`;
+      } else if (differenceInSeconds < 86400) {
+        const hours = Math.floor(differenceInSeconds / 3600);
+        return `${hours} hours ago`;
+      } else {
+        const days = Math.floor(differenceInSeconds / 86400);
+        return `${days} days ago`;
+      }
+    };
+
+    return {
+      createdItems,
+      // getParentCategoryTitle,
+      getTimeDifference
+    };
+  }
+}
 </script>
 
 <template>
@@ -42,26 +86,26 @@ import Pagination from "../../includes/navigation/Pagination.vue";
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="border-b border-gray-400 hover:bg-gray-100">
-                    <td class="whitespace-nowrap px-6 py-2 font-medium">1</td>
-                    <td class="whitespace-nowrap px-6 py-2 font-medium">1</td>
-                    <td class="whitespace-nowrap px-6 py-2">
-                      <router-link :to="{ name : 'staffs.index' }" >
-                        <span class="font-bold">Shawon Khan</span>
+                  <tr v-for="(item, index) in createdItems" :key="item.id" class="border-b border-gray-400 hover:bg-gray-100">
+                    <td class="px-6 py-2">{{ index + 1 }}</td>
+                    <td class="px-6 py-2">
+                      <router-link :to="{ name : 'items.index' }" >
+                        <span class="font-bold">{{ item.title }}</span>
                       </router-link>
                     </td>
-                    <td class="whitespace-nowrap px-6 py-2">Managing Director</td>
-                    <td class="whitespace-nowrap px-6 py-2">shawonk007@gmail.com</td>
-                    <td class="whitespace-nowrap px-6 py-2">Administrator</td>
-                    <td class="whitespace-nowrap px-6 py-2">
+                    <td class="px-6 py-2">{{ item.sku }}</td>
+                    <td class="px-6 py-2">{{ item.child }}</td>
+                    <td class="px-6 py-2">{{ item.price }}</td>
+                    <td class="px-6 py-2">{{ getTimeDifference(item.createdTime) }}</td>
+                    <td class="px-6 py-2">
                       <ul class="flex items-center gap-2 text-sm text-gray-500">
-                        <router-link :to="{ name : 'staffs.index' }" class="block hover:text-gray-700 hover:bg-gray-300 border-2 border-gray-300 rounded-sm px-2 py-1" >
+                        <router-link :to="{ name : 'items.index' }" class="block hover:text-gray-700 hover:bg-gray-300 border-2 border-gray-300 rounded-sm px-2 py-1" >
                           <fa-icon :icon="['fas','edit']" />
                         </router-link>
-                        <router-link :to="{ name : 'staffs.index' }" class="block hover:text-gray-700 hover:bg-gray-300 border-2 border-gray-300 rounded-sm px-2 py-1" >
+                        <router-link :to="{ name : 'items.index' }" class="block hover:text-gray-700 hover:bg-gray-300 border-2 border-gray-300 rounded-sm px-2 py-1" >
                           <fa-icon :icon="['fas','eye']" />
                         </router-link>
-                        <router-link :to="{ name : 'staffs.index' }" class="block hover:text-gray-700 hover:bg-gray-300 border-2 border-gray-300 rounded-sm px-2 py-1" >
+                        <router-link :to="{ name : 'items.index' }" class="block hover:text-gray-700 hover:bg-gray-300 border-2 border-gray-300 rounded-sm px-2 py-1" >
                           <fa-icon :icon="['fas','trash-alt']" />
                         </router-link>
                       </ul>
